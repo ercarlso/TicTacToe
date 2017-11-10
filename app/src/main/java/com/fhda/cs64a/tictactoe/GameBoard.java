@@ -11,5 +11,5 @@ public class GameBoard extends AppCompatActivity {
         setContentView(R.layout.activity_game_board);
     }
 
-    //Testing git push 
+    //Testing git push
 }
