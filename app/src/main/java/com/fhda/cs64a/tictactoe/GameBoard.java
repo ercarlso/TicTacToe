@@ -1,11 +1,15 @@
 package com.fhda.cs64a.tictactoe;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameBoard extends AppCompatActivity  {
     public String player1;
@@ -28,39 +32,95 @@ public class GameBoard extends AppCompatActivity  {
     private View.OnClickListener btnView;
 
     private void checkForWin(){
-
+        String winningCombo;
         if(currentPlayer.equalsIgnoreCase(player1)){
-            currentPlayer = player2;
+            if(playerOnePlaysX){
+                winningCombo = "XXX";
+            }
+            else{
+                winningCombo = "OOO";
+            }
+        }
+        else if(currentPlayer.equalsIgnoreCase(player2)){
+            if(playerOnePlaysX){
+                winningCombo = "OOO";
+            }
+            else{
+                winningCombo = "XXX";
+            }
         }
         else{
-            currentPlayer = player1;
-        }
 
-        if(!computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)){
-            txtMsgTop.setText(player1+"'s turn (x)");
-        }
-        else if(!computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)){
-            txtMsgTop.setText(player1+"'s turn (o)");
-        }
-        else if(!computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)){
-            txtMsgTop.setText(player2+"'s turn (o)");
-        }
-        else if(!computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)){
-            txtMsgTop.setText(player1+"'s turn (x)");
-        }
-        
-        else if (computerPlays && playerOnePlaysX){
-            txtMsgTop.setText("Computer's turn (x)");
-            //TODO invoke computer play method
-        }
-        else if (computerPlays && playerOnePlaysX){
-            txtMsgTop.setText("Computer's turn (o)");
-            //TODO invoke computer play method
-        }
-        else {
             txtMsgTop.setText("Error occured, please, restart.");
+            winningCombo = "ERROR";
+        }
+        HashMap<Integer, Button[]> winningPattern = new HashMap<Integer, Button[]>();
+        winningPattern.put(0,new Button[]{btn1,btn2,btn3});
+        winningPattern.put(1,new Button[]{btn4,btn5,btn6});
+        winningPattern.put(2,new Button[]{btn7,btn8,btn9});
+        winningPattern.put(3,new Button[]{btn1,btn4,btn7});
+        winningPattern.put(4,new Button[]{btn2,btn5,btn8});
+        winningPattern.put(5,new Button[]{btn3,btn6,btn9});
+        winningPattern.put(6,new Button[]{btn1,btn5,btn9});
+        winningPattern.put(7,new Button[]{btn3,btn5,btn7});
+
+        ArrayList possibleCombinations = new ArrayList<String>();
+        possibleCombinations.add(btn1.getText().toString() + btn2.getText().toString() + btn3.getText().toString());
+        possibleCombinations.add(btn4.getText().toString() + btn5.getText().toString() + btn6.getText().toString());
+        possibleCombinations.add(btn7.getText().toString() + btn8.getText().toString() + btn9.getText().toString());
+        possibleCombinations.add(btn1.getText().toString() + btn4.getText().toString() + btn7.getText().toString());
+        possibleCombinations.add(btn2.getText().toString() + btn5.getText().toString() + btn8.getText().toString());
+        possibleCombinations.add(btn3.getText().toString() + btn6.getText().toString() + btn9.getText().toString());
+        possibleCombinations.add(btn1.getText().toString() + btn5.getText().toString() + btn9.getText().toString());
+        possibleCombinations.add(btn3.getText().toString() + btn5.getText().toString() + btn7.getText().toString());
+        int winCombo = 9;
+        for(int i = 0; i<8;i++ ){
+            if(winningCombo.equalsIgnoreCase(possibleCombinations.get(i).toString())){
+                winCombo = i;
+                break;
+            }
+
         }
 
+        if(winCombo == 9) {
+            // This happens if no winner.
+            // TODO logic if game is ended, but no winner.
+            if (currentPlayer.equalsIgnoreCase(player1)) {
+                currentPlayer = player2;
+            } else {
+                currentPlayer = player1;
+            }
+
+            if (!computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)) {
+                txtMsgTop.setText(player1 + "'s turn (x)");
+            } else if (!computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)) {
+                txtMsgTop.setText(player1 + "'s turn (o)");
+            } else if (!computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)) {
+                txtMsgTop.setText(player2 + "'s turn (o)");
+            } else if (!computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)) {
+                txtMsgTop.setText(player1 + "'s turn (x)");
+            } else if (computerPlays && playerOnePlaysX) {
+                txtMsgTop.setText("Computer's turn (x)");
+                //TODO invoke computer play method
+            } else if (computerPlays && playerOnePlaysX) {
+                txtMsgTop.setText("Computer's turn (o)");
+                //TODO invoke computer play method
+            } else {
+                txtMsgTop.setText("Error occured, please, restart.");
+            }
+        }
+        else{
+
+            txtMsgBottom.setText(currentPlayer + " won!");
+            Button[] flashButtons =  winningPattern.get(winCombo);
+
+                for(int x =2;x>=0; x--){
+                     flashButtons[x].setBackgroundColor(Color.parseColor("#FF0000"));
+
+                }
+
+
+        }
     };
 
 
@@ -77,18 +137,36 @@ public class GameBoard extends AppCompatActivity  {
         setContentView(R.layout.activity_game_board);
         txtMsgTop = (TextView) findViewById(R.id.txtMsgTop);
         txtMsgBottom = (TextView) findViewById(R.id.txtMsgBottom);
+        btn1  = (Button) findViewById(R.id.btn1);
+
+        btn2  = (Button) findViewById(R.id.btn2);
+
+        btn3  = (Button) findViewById(R.id.btn3);
+
+        btn4  = (Button) findViewById(R.id.btn4);
+
+        btn5  = (Button) findViewById(R.id.btn5);
+
+        btn6  = (Button) findViewById(R.id.btn6);
+
+        btn7  = (Button) findViewById(R.id.btn7);
+
+        btn8  = (Button) findViewById(R.id.btn8);
+
+        btn9  = (Button) findViewById(R.id.btn9);
 
         //This is data needed from welcome screen.
         player1 = "Steven";
         player2 = "Maya";
         playerOnePlaysX = true;
         computerPlays = false;
+
         //This is data needed from welcome screen.
 
         currentPlayer = player2;
 
 
-        checkForWin(); //Run once in the begining
+        checkForWin(); //Run once in the beginning
 
         btnView = new View.OnClickListener(){
             public void onClick(View v){
@@ -122,28 +200,15 @@ public class GameBoard extends AppCompatActivity  {
 
             }
         };
-        btn1  = (Button) findViewById(R.id.btn1);
         btn1.setOnClickListener(btnView);
-        btn2  = (Button) findViewById(R.id.btn2);
         btn2.setOnClickListener(btnView);
-        btn3  = (Button) findViewById(R.id.btn3);
         btn3.setOnClickListener(btnView);
-        btn4  = (Button) findViewById(R.id.btn4);
         btn4.setOnClickListener(btnView);
-        btn5  = (Button) findViewById(R.id.btn5);
         btn5.setOnClickListener(btnView);
-        btn6  = (Button) findViewById(R.id.btn6);
         btn6.setOnClickListener(btnView);
-        btn7  = (Button) findViewById(R.id.btn7);
         btn7.setOnClickListener(btnView);
-        btn8  = (Button) findViewById(R.id.btn8);
         btn8.setOnClickListener(btnView);
-        btn9  = (Button) findViewById(R.id.btn9);
         btn9.setOnClickListener(btnView);
-
-
-
-
 }
 
 
