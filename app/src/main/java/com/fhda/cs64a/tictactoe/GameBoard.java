@@ -1,7 +1,9 @@
 package com.fhda.cs64a.tictactoe;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -31,8 +33,56 @@ public class GameBoard extends AppCompatActivity  {
     private Button btn9;
     private View.OnClickListener btnView;
 
+    private AlertDialog.Builder builder;
+    private int p1score, p2score;
+    private int turnNumber;
+
+    private void displayScore (String winner) {
+        // Add points for current winning player
+        if (player1.equals(winner))
+            p1score++;
+        else if (player2.equals(winner))
+            p2score++;
+
+        // Display score so-far
+        builder.setTitle(txtMsgBottom.getText());
+        builder.setMessage(player1 + "'s score = " + p1score + "\n" + player2
+                + "'s score = " + p2score);
+
+        // Add the buttons
+        builder.setPositiveButton("Play Again", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // Clear the game board ...
+                int white = Color.parseColor("#FFFFFF");
+                btn1.setText(""); btn1.setBackgroundColor(white);
+                btn2.setText(""); btn2.setBackgroundColor(white);
+                btn3.setText(""); btn3.setBackgroundColor(white);
+                btn4.setText(""); btn4.setBackgroundColor(white);
+                btn5.setText(""); btn5.setBackgroundColor(white);
+                btn6.setText(""); btn6.setBackgroundColor(white);
+                btn7.setText(""); btn7.setBackgroundColor(white);
+                btn8.setText(""); btn8.setBackgroundColor(white);
+                btn9.setText(""); btn9.setBackgroundColor(white);
+                txtMsgBottom.setText("");
+                turnNumber = 0;
+            }
+        });
+        builder.setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                finish(); // Goes back to Welcome screen
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.setCancelable(false);
+        dialog.show();
+
+    }
     private void checkForWin(){
         String winningCombo;
+        // Keep track if game is over (tie)
+        turnNumber++;
+
         if(currentPlayer.equalsIgnoreCase(player1)){
             if(playerOnePlaysX){
                 winningCombo = "XXX";
@@ -84,7 +134,11 @@ public class GameBoard extends AppCompatActivity  {
 
         if(winCombo == 9) {
             // This happens if no winner.
-            // TODO logic if game is ended, but no winner.
+            if (turnNumber == 9) {
+                txtMsgBottom.setText("Tie Game!");
+                this.displayScore(null);
+            }
+
             if (currentPlayer.equalsIgnoreCase(player1)) {
                 currentPlayer = player2;
             } else {
@@ -112,15 +166,16 @@ public class GameBoard extends AppCompatActivity  {
         else{
 
             txtMsgBottom.setText(currentPlayer + " won!");
+
             Button[] flashButtons =  winningPattern.get(winCombo);
 
-                for(int x =2;x>=0; x--){
-                     flashButtons[x].setBackgroundColor(Color.parseColor("#FF0000"));
+            for(int x =2;x>=0; x--){
+                flashButtons[x].setBackgroundColor(Color.parseColor("#FF0000"));
+            }
 
-                }
-
-
+            this.displayScore(currentPlayer);
         }
+
     };
 
 
@@ -164,6 +219,9 @@ public class GameBoard extends AppCompatActivity  {
         //This is data needed from welcome screen.
 
         currentPlayer = player2;
+
+        // Needed for score board
+        builder = new AlertDialog.Builder(this);
 
 
         checkForWin(); //Run once in the beginning
