@@ -36,7 +36,7 @@ public class GameBoard extends AppCompatActivity  {
 
     private AlertDialog.Builder builder;
     private int p1score, p2score;
-    private int turnNumber;
+    private int turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text
 
     private void displayScore (String winner) {
         // Add points for current winning player
@@ -65,7 +65,7 @@ public class GameBoard extends AppCompatActivity  {
                 btn8.setText(" "); btn8.setBackgroundColor(white);
                 btn9.setText(" "); btn9.setBackgroundColor(white);
                 txtMsgBottom.setText("");
-                turnNumber = 0;
+                turnNumber = -1;
                 currentPlayer = player2;
                 checkForWin();
             }
