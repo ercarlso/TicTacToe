@@ -3,6 +3,7 @@ package com.fhda.cs64a.tictactoe;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -39,6 +40,10 @@ public class GameBoard extends AppCompatActivity  {
     private int turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text
 
     private void displayScore (String winner) {
+
+
+
+
         // Add points for current winning player
         if (player1.equals(winner))
             p1score++;
@@ -76,10 +81,17 @@ public class GameBoard extends AppCompatActivity  {
             }
         });
 
-        AlertDialog dialog = builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
 
-        dialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                dialog.show();
+            }
+        }, 2000);
+
+
 
     }
     private void checkForWin(){
@@ -351,7 +363,7 @@ public class GameBoard extends AppCompatActivity  {
 
                 while(true){
                     Random ran = new Random();
-                    int x = ran.nextInt((9)+1);
+                    int x = ran.nextInt(9);
                     if(buttonsArray.get(x).getText().toString().equalsIgnoreCase(" ")) {
                         buttonsArray.get(x).setText(computerPlaysLetter);
                         checkForWin();
