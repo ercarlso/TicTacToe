@@ -21,4 +21,11 @@
         android:onClick="OnStartGame"
         android:text="Start Game" />
 
+    <Button
+        android:id="@+id/btnHighScores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="OnViewHighScores"
+        android:text="View High Scores" />
+
 </LinearLayout>

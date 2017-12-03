@@ -21,6 +21,7 @@ public class GameBoard extends AppCompatActivity  {
     public boolean playerOnePlaysX;
     public boolean computerPlays;
     private String currentPlayer;
+    private HiScoreDbAdapter hiScoreDbAdapter;
 
     private TextView txtMsgTop;
     private TextView txtMsgBottom;
@@ -36,7 +37,7 @@ public class GameBoard extends AppCompatActivity  {
     private View.OnClickListener btnView;
 
     private AlertDialog.Builder builder;
-    private int p1score, p2score;
+    private int p1score, p2score, gamesPlayed;
     private int turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text fields
 
     private void displayScore (String winner) {
@@ -46,6 +47,9 @@ public class GameBoard extends AppCompatActivity  {
             p1score++;
         else if (player2.equals(winner))
             p2score++;
+
+        // Keep track of games played, including Tie games
+        gamesPlayed++;
 
         // Display score so-far
         builder.setTitle(txtMsgBottom.getText());
@@ -74,6 +78,9 @@ public class GameBoard extends AppCompatActivity  {
         });
         builder.setNegativeButton("Back to main screen", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
+                // Update High Score Database with win/losses
+                hiScoreDbAdapter.addScoresForPlayer(player1, p1score, gamesPlayed);
+                hiScoreDbAdapter.addScoresForPlayer(player2, p2score, gamesPlayed);
                 finish(); // Goes back to Welcome screen
             }
         });
@@ -385,6 +392,8 @@ public class GameBoard extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
+        // Create High Score database handle
+        hiScoreDbAdapter = new HiScoreDbAdapter(this);
         txtMsgTop = (TextView) findViewById(R.id.txtMsgTop);
         txtMsgBottom = (TextView) findViewById(R.id.txtMsgBottom);
         btn1  = (Button) findViewById(R.id.btn1);
