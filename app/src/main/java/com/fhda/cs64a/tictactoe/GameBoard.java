@@ -37,12 +37,9 @@ public class GameBoard extends AppCompatActivity  {
 
     private AlertDialog.Builder builder;
     private int p1score, p2score;
-    private int turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text
+    private int turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text fields
 
     private void displayScore (String winner) {
-
-
-
 
         // Add points for current winning player
         if (player1.equals(winner))
@@ -70,7 +67,7 @@ public class GameBoard extends AppCompatActivity  {
                 btn8.setText(" "); btn8.setBackgroundColor(white);
                 btn9.setText(" "); btn9.setBackgroundColor(white);
                 txtMsgBottom.setText("");
-                turnNumber = -1;
+                turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text fields
                 currentPlayer = player2;
                 checkForWin();
             }
@@ -89,7 +86,7 @@ public class GameBoard extends AppCompatActivity  {
             public void run() {
                 dialog.show();
             }
-        }, 2000);
+        }, 1500);
 
 
 
@@ -153,8 +150,9 @@ public class GameBoard extends AppCompatActivity  {
             if (turnNumber == 9) {
                 txtMsgBottom.setText("Tie Game!");
                 this.displayScore(null);
+                return; // we need return here if, because if we play with computer and it is tie, computer will attempt to do its turn with error.
             }
-
+            System.out.println(turnNumber);
             if (currentPlayer.equalsIgnoreCase(player1)) {
                 currentPlayer = player2;
             } else {
@@ -201,14 +199,11 @@ public class GameBoard extends AppCompatActivity  {
     };
 
     public void computerPlays(){
-
-
         String computerPlaysLetter = "";
         String player1PlaysLetter ="";
         if(playerOnePlaysX){
             computerPlaysLetter = "O";
             player1PlaysLetter = "X";
-
         }
         else{
             computerPlaysLetter = "X";
@@ -235,7 +230,7 @@ public class GameBoard extends AppCompatActivity  {
         possibleCombinations.add(btn1.getText().toString() + btn5.getText().toString() + btn9.getText().toString());
         possibleCombinations.add(btn3.getText().toString() + btn5.getText().toString() + btn7.getText().toString());
 
-        // Search for player 1 two consecutive letters in winning combo
+        // Search for player 1 two consecutive letters in winning combos
         //And try to prevent player 1 from winning
         int decision = 8;
         for(int i = 0; i<8;i++ ){
@@ -268,7 +263,8 @@ public class GameBoard extends AppCompatActivity  {
             }
 
         }
-
+        // Search for computer two consecutive letters in winning combos
+        //And try to win by filling it with third letter
         decision = 8;
         for(int i = 0; i<8;i++ ){
             if(possibleCombinations.get(i).toString().contains(computerPlaysLetter+computerPlaysLetter)){
@@ -299,7 +295,8 @@ public class GameBoard extends AppCompatActivity  {
             }
 
         }
-
+        // Search for at least one computer letters in winning combos
+        //And try to extend winning combo by adding another letter
         decision = 8;
         ArrayList<Integer> combinations = new ArrayList<>();
         for(int i = 0; i<8;i++ ){
@@ -308,8 +305,9 @@ public class GameBoard extends AppCompatActivity  {
             }
         }
         if(!combinations.isEmpty()){
+
             for (int i = combinations.size(); i>=0;i--){
-                Button[] buttons =  winningPattern.get(i);
+                Button[] buttons =  winningPattern.get(i); //attmpt to read from emty array
                 if(buttons[0].getText().toString().equalsIgnoreCase(computerPlaysLetter) && buttons[1].getText().toString().equalsIgnoreCase(" ")){
                     buttons[1].setText(computerPlaysLetter);
                     checkForWin();
@@ -341,15 +339,17 @@ public class GameBoard extends AppCompatActivity  {
                     return;
                 }
             }
+
         }
         else{
-            //Empty gamepad
+            // If gamepad has zero computer letter, lets try to put it in the bes center position
             if(btn5.getText().toString().equalsIgnoreCase(" ")) {
                 btn5.setText(computerPlaysLetter);
                 checkForWin();
                 return;
             }
             else{
+                // If gamepad has zero computer letter, and center position is occupied, lets pick random position
                 ArrayList<Button> buttonsArray = new ArrayList<>();
                 buttonsArray.add(btn1);
                 buttonsArray.add(btn2);
@@ -405,11 +405,12 @@ public class GameBoard extends AppCompatActivity  {
         btn8.setText(" ");
         btn9  = (Button) findViewById(R.id.btn9);
         btn9.setText(" ");
+
         //This is data needed from welcome screen.
         player1 = "Steven";
         player2 = "Maya";
         playerOnePlaysX = false;
-        computerPlays = false;
+        computerPlays = true;
 
         //This is data needed from welcome screen.
 
