@@ -48,9 +48,6 @@ public class GameBoard extends AppCompatActivity  {
         else if (player2.equals(winner))
             p2score++;
 
-        // Keep track of games played, including Tie games
-        gamesPlayed++;
-
         // Display score so-far
         builder.setTitle(txtMsgBottom.getText());
         builder.setMessage(player1 + "'s score = " + p1score + "\n" + player2
@@ -191,6 +188,8 @@ public class GameBoard extends AppCompatActivity  {
             }
         }
         else{
+            // Keep track of games played and won (*not* tie games)
+            gamesPlayed++;
 
             txtMsgBottom.setText(currentPlayer + " won!");
 
