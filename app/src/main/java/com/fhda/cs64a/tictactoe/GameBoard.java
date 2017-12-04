@@ -313,7 +313,7 @@ public class GameBoard extends AppCompatActivity  {
         if(!combinations.isEmpty()){
 
             for (int i = combinations.size(); i>=0;i--){
-                Button[] buttons =  winningPattern.get(i); //attmpt to read from emty array
+                Button[] buttons =  winningPattern.get(i);
                 if(buttons[0].getText().toString().equalsIgnoreCase(computerPlaysLetter) && buttons[1].getText().toString().equalsIgnoreCase(" ")){
                     buttons[1].setText(computerPlaysLetter);
                     checkForWin();
