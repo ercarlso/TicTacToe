@@ -16,8 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".GameBoard" />
-        <activity android:name=".HiScoresActivity"></activity>
+        <activity android:name=".GameBoard_CM" />
+        <activity android:name=".HiScoresActivity" />
+        <activity android:name=".OnePlayerActivity" />
+        <activity android:name=".TwoPlayersActivity" />
+        <activity android:name=".GameRulesActivity" />
     </application>
 
 </manifest>

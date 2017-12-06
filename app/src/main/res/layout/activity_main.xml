@@ -1,123 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     android:orientation="vertical"
     tools:context="com.fhda.cs64a.tictactoe.MainActivity">
 
-    <TextView
-        android:id="@+id/tvWelcome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to TicTacToe!"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/tvP1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvWelcome"
-        android:layout_marginTop="14dp"
-        android:text="Player 1 name:"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/etPlayerOne"
+    <Button
+        android:id="@+id/btnOnePlayer"
+        style="@style/ButtonOrangeColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvP2"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
-
-    <TextView
-        android:id="@+id/tvP2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/tvP1"
-        android:layout_alignRight="@+id/tvP1"
-        android:layout_below="@+id/etPlayerOne2"
-        android:layout_marginTop="15dp"
-        android:text="Player 2 name:"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/etPlayerOne2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/tvP1"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp" />
+        android:layout_marginTop="50dp"
+        android:text="1 Player" />
 
     <Button
-        android:id="@+id/btnStart"
+        android:id="@+id/btnTwoPlayers"
+        style="@style/ButtonOrangeColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btnHighScores"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:onClick="OnStartGame"
-        android:text="Start Game" />
+        android:layout_marginTop="20dp"
+        android:text="2 Players"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnHighScores"
+        android:id="@+id/btnGameRules"
+        style="@style/ButtonOrangeColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="123dp"
-        android:onClick="OnViewHighScores"
-        android:text="View High Scores" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:text="Play with computer" />
+        android:layout_marginTop="20dp"
+        android:text="Game Rules" />
 
     <Button
-        android:id="@+id/btnRules"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnExit"
+        style="@style/ButtonOrangeColor"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/btnStart"
-        android:layout_marginTop="48dp"
-        android:text="Game rules" />
+        android:layout_marginTop="20dp"
+        android:text="Exit" />
 
-    <TextView
-        android:id="@+id/tvPlayer1Letter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/etPlayerOne2"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="X"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/tvPlayer2Letter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/etPlayerOne"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:text="O"
-        android:textSize="18sp" />
-
-</RelativeLayout>
+</LinearLayout>

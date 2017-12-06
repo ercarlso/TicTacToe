@@ -23,11 +23,11 @@ public class HiScoreDbAdapter {
     public static final String KEY_PLAYER = "player";
     public static final String KEY_WINS = "wins";
     public static final String KEY_GAMES = "games";
-    private static final String[] ALL_KEYS={KEY_ID,KEY_PLAYER,KEY_WINS,KEY_GAMES};
+    private static final String[] ALL_KEYS = {KEY_ID, KEY_PLAYER, KEY_WINS, KEY_GAMES};
     //protected static final int COL_KEY_ID=0;
-    protected static final int COL_KEY_PLAYER=1;
-    protected static final int COL_KEY_WINS=2;
-    protected static final int COL_KEY_GAMES=3;
+    protected static final int COL_KEY_PLAYER = 1;
+    protected static final int COL_KEY_WINS = 2;
+    protected static final int COL_KEY_GAMES = 3;
 
 
     public HiScoreDbAdapter(Context context) {
@@ -38,7 +38,7 @@ public class HiScoreDbAdapter {
         return HISCORE_DBVERSION;
     }
 
-    public boolean hasData () {
+    public boolean hasData() {
         // Let caller know if db is empty or not
         int rowCount;
         open();
@@ -57,10 +57,10 @@ public class HiScoreDbAdapter {
         return this;
     }
 
-    public Cursor getHiScores () {
+    public Cursor getHiScores() {
         open();
-        Cursor cursor = db.query(true, HISCORE_TABLE,ALL_KEYS, null, null, null, null,
-                KEY_WINS+" DESC, "+KEY_GAMES+" ASC", null);
+        Cursor cursor = db.query(true, HISCORE_TABLE, ALL_KEYS, null, null, null, null,
+                KEY_WINS + " DESC, " + KEY_GAMES + " ASC", null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
         }
@@ -87,13 +87,14 @@ public class HiScoreDbAdapter {
         return (allScores);
 
     }
-    public long addScoresForPlayer (String name, int wins, int games) {
+
+    public long addScoresForPlayer(String name, int wins, int games) {
         long row_id = -1;
         ContentValues values = new ContentValues();
 
         if (wins <= games) {
             // Cannot win more games than played
-            String whereString = (KEY_PLAYER+"=?");
+            String whereString = (KEY_PLAYER + "=?");
             String[] whereArgs = {name};
             open();
             Cursor cursor = db.query(true, HISCORE_TABLE, ALL_KEYS, whereString, whereArgs,
@@ -101,7 +102,7 @@ public class HiScoreDbAdapter {
             if (cursor.getCount() > 0) {
                 // Existing player has new scores to be added
                 cursor.moveToFirst();
-                int newWins  = wins + cursor.getInt(COL_KEY_WINS);
+                int newWins = wins + cursor.getInt(COL_KEY_WINS);
                 int newGames = games + cursor.getInt(COL_KEY_GAMES);
                 values.put(KEY_WINS, newWins);
                 values.put(KEY_GAMES, newGames);
@@ -120,14 +121,14 @@ public class HiScoreDbAdapter {
     }
 
     public void deleteAll() {
-        String whereString = KEY_ID+"=";
+        String whereString = KEY_ID + "=";
         Cursor cursor = getHiScores();
         open();
         int rowid = cursor.getColumnIndexOrThrow(KEY_ID);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             do {
-                db.delete(HISCORE_TABLE, whereString+cursor.getLong(rowid), null);
+                db.delete(HISCORE_TABLE, whereString + cursor.getLong(rowid), null);
             } while (cursor.moveToNext());
         }
         close();

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
 
-    tools:context="com.fhda.cs64a.tictactoe.GameBoard">
+    tools:context="com.fhda.cs64a.tictactoe.GameBoard_CM">
 
     <TextView
         android:id="@+id/txtMsgTop"
@@ -19,6 +19,7 @@
         android:textStyle="bold" />
 
     <TableLayout
+        android:id="@+id/btnTable"
         android:layout_width="340dp"
         android:layout_height="340dp"
         android:layout_gravity="center"
@@ -39,6 +40,7 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="1"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
@@ -55,6 +57,7 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="2"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
@@ -71,6 +74,7 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="3"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
@@ -93,11 +97,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="4"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/btn5"
@@ -109,11 +114,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="5"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/btn6"
@@ -125,11 +131,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="6"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
         </TableRow>
 
         <TableRow
@@ -149,11 +156,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="7"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/btn8"
@@ -165,11 +173,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="8"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
 
             <Button
                 android:id="@+id/btn9"
@@ -181,11 +190,12 @@
                 android:fontFamily="monospace"
                 android:minHeight="0dp"
                 android:minWidth="0dp"
+                android:tag="9"
                 android:text=" "
                 android:textAlignment="center"
                 android:textSize="60sp"
                 android:textStyle="bold"
-                android:typeface="monospace"  />
+                android:typeface="monospace" />
         </TableRow>
 
     </TableLayout>
