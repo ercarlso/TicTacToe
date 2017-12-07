@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameBoard extends AppCompatActivity  {
+
     public String player1;
     public String player2;
     public boolean playerOnePlaysX;
@@ -156,7 +157,6 @@ public class GameBoard extends AppCompatActivity  {
                 this.displayScore(null);
                 return; // we need return here if, because if we play with computer and it is tie, computer will attempt to do its turn with error.
             }
-            System.out.println(turnNumber);
             if (currentPlayer.equalsIgnoreCase(player1)) {
                 currentPlayer = player2;
             } else {
@@ -171,16 +171,29 @@ public class GameBoard extends AppCompatActivity  {
                 txtMsgTop.setText(player2 + "'s turn (o)");
             } else if (!computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)) {
                 txtMsgTop.setText(player2 + "'s turn (x)");
+
+
             } else if (computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)) {
                 txtMsgTop.setText(player1 + "'s turn (x)");
+                if (player1.equalsIgnoreCase("Computer")){
+                    computerPlays();
+                }
             } else if (computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player1)) {
                 txtMsgTop.setText(player1 + "'s turn (o)");
+                if (player1.equalsIgnoreCase("Computer")){
+                    computerPlays();
+                }
             } else if (computerPlays && playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)){
                 txtMsgTop.setText(player2 + "'s turn (o)");
-                computerPlays();
+                if (player2.equalsIgnoreCase("Computer")){
+                    computerPlays();
+                }
+
             }else if (computerPlays && !playerOnePlaysX && currentPlayer.equalsIgnoreCase(player2)){
                 txtMsgTop.setText(player2 + "'s turn (x)");
-                computerPlays();
+                if (player2.equalsIgnoreCase("Computer")){
+                    computerPlays();
+                }
             }
 
             else {
@@ -196,7 +209,7 @@ public class GameBoard extends AppCompatActivity  {
             Button[] flashButtons =  winningPattern.get(winCombo);
 
             for(int x =2;x>=0; x--){
-                flashButtons[x].setBackgroundColor(Color.parseColor("#17c762"));
+                flashButtons[x].setBackgroundColor(Color.parseColor("#fc8023"));
             }
 
             this.displayScore(currentPlayer);
@@ -207,13 +220,21 @@ public class GameBoard extends AppCompatActivity  {
     public void computerPlays(){
         String computerPlaysLetter = "";
         String player1PlaysLetter ="";
-        if(playerOnePlaysX){
+        if(playerOnePlaysX && !player1.equalsIgnoreCase("computer")){
             computerPlaysLetter = "O";
             player1PlaysLetter = "X";
         }
-        else{
+        else if (playerOnePlaysX && !player2.equalsIgnoreCase("computer")){
             computerPlaysLetter = "X";
             player1PlaysLetter = "O";
+        }
+        else if (!playerOnePlaysX && !player1.equalsIgnoreCase("computer")){
+            computerPlaysLetter = "X";
+            player1PlaysLetter = "O";
+        }
+        else if (!playerOnePlaysX && !player2.equalsIgnoreCase("computer")){
+            computerPlaysLetter = "O";
+            player1PlaysLetter = "X";
         }
 
         HashMap<Integer, Button[]> winningPattern = new HashMap<Integer, Button[]>();
@@ -312,8 +333,8 @@ public class GameBoard extends AppCompatActivity  {
         }
         if(!combinations.isEmpty()){
 
-            for (int i = combinations.size(); i>=0;i--){
-                Button[] buttons =  winningPattern.get(i);
+            for (int i = (combinations.size() -1); i>=0;i--){
+                Button[] buttons =  winningPattern.get(i); //attempt to read from null array
                 if(buttons[0].getText().toString().equalsIgnoreCase(computerPlaysLetter) && buttons[1].getText().toString().equalsIgnoreCase(" ")){
                     buttons[1].setText(computerPlaysLetter);
                     checkForWin();
@@ -414,19 +435,17 @@ public class GameBoard extends AppCompatActivity  {
         btn9  = (Button) findViewById(R.id.btn9);
         btn9.setText(" ");
 
-        //This is data needed from welcome screen.
-        player1 = "Steven";
-        player2 = "Maya";
-        playerOnePlaysX = false;
-        computerPlays = true;
-
-        //This is data needed from welcome screen.
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            player1 = extras.getString("player1");
+            player2 = extras.getString("player2");
+            playerOnePlaysX  = extras.getBoolean("playerOnePlaysX");
+            computerPlays  = extras.getBoolean("computerPlays");
+        }
 
         currentPlayer = player2;
 
-        if(computerPlays){
-            player2 = "Computer";
-        }
+
 
         // Needed for score board
         builder = new AlertDialog.Builder(this);
@@ -436,7 +455,9 @@ public class GameBoard extends AppCompatActivity  {
 
         btnView = new View.OnClickListener(){
             public void onClick(View v){
-
+                if(txtMsgBottom.getText().toString().contains(" won!")){
+                    return; // To prevent cheating by invoking checkForWin method and count additional wins!
+                }
                 Button b = (Button)v;
                 String buttonText = b.getText().toString();
                 if (!(buttonText.equalsIgnoreCase("x") || buttonText.equalsIgnoreCase("o"))){
