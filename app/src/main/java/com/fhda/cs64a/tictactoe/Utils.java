@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Utils {
-    public List<Character> convertToArrayList(Button[] buttons) {
+    static public List<Character> convertToArrayList(Button[] buttons) {
 
         ArrayList<Character> btnList = new ArrayList<>();
         for (Button btn : buttons) {
