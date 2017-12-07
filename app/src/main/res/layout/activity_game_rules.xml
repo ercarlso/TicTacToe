@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="left"
-        android:text="It is two players, X and O, game who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three respective marks in a horizontal, vertical, or diagonal row wins the game. \n\n The number of Xs is always either equal to or exactly 1 more than the number of Os (if X starts). \n\n The game ends when three-in-a-row is obtained."
+        android:text="It is two players, X and O, game who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three respective marks in a horizontal, vertical, or diagonal row wins the game. \n\n The number of Xs is always either equal to or exactly 1 more than the number of Os (if X starts). \n\n X is player 1 and O is player 2. Player 1(X) always plays the first, and the game ends when three-in-a-row is obtained."
         android:textSize="23sp"
         android:textStyle="bold" />
 
