@@ -1,6 +1,7 @@
 package com.fhda.cs64a.tictactoe;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Typeface font = Typeface.createFromAsset(getAssets(),  "fonts/Geometry_Soft_Pro_Bold_N.otf");
         btnShufflePlayers = (Button) findViewById(R.id.btnShuffle);
         btnStartGame = (Button) findViewById(R.id.btnStart);
         btnSeeHighScore = (Button) findViewById(R.id.btnHighScore);
@@ -43,7 +45,9 @@ public class MainActivity extends AppCompatActivity {
         btnExit = (Button) findViewById(R.id.btnQuit);
         chkboxPlayWithPC = (CheckBox) findViewById(R.id.chkboxPlayWithPC);
         player1Letter = (TextView) findViewById(R.id.player1Letter);
+        player1Letter.setTypeface(font);
         player2Letter = (TextView) findViewById(R.id.player2Letter);
+        player2Letter.setTypeface(font);
         player1 = (TextView) findViewById(R.id.tvPlayer1);
         player2 = (TextView) findViewById(R.id.tvPlayer2);
         etFirstPlayerName = (EditText) findViewById(R.id.etFirstPlayerName);

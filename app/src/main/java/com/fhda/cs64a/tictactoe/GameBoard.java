@@ -2,6 +2,7 @@ package com.fhda.cs64a.tictactoe;
 
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
@@ -60,14 +61,23 @@ public class GameBoard extends AppCompatActivity  {
                 // Clear the game board ...
                 int white = Color.parseColor("#FAFAFA");
                 btn1.setText(" "); btn1.setBackgroundColor(white);
+                btn1.setTextColor(Color.parseColor("#202020"));
                 btn2.setText(" "); btn2.setBackgroundColor(white);
+                btn2.setTextColor(Color.parseColor("#202020"));
                 btn3.setText(" "); btn3.setBackgroundColor(white);
+                btn3.setTextColor(Color.parseColor("#202020"));
                 btn4.setText(" "); btn4.setBackgroundColor(white);
+                btn4.setTextColor(Color.parseColor("#202020"));
                 btn5.setText(" "); btn5.setBackgroundColor(white);
+                btn5.setTextColor(Color.parseColor("#202020"));
                 btn6.setText(" "); btn6.setBackgroundColor(white);
+                btn6.setTextColor(Color.parseColor("#202020"));
                 btn7.setText(" "); btn7.setBackgroundColor(white);
+                btn7.setTextColor(Color.parseColor("#202020"));
                 btn8.setText(" "); btn8.setBackgroundColor(white);
+                btn8.setTextColor(Color.parseColor("#202020"));
                 btn9.setText(" "); btn9.setBackgroundColor(white);
+                btn9.setTextColor(Color.parseColor("#202020"));
                 txtMsgBottom.setText("");
                 turnNumber = -1; //-1 because first initial check for win is not a real turn, but initializer for players and text fields
                 currentPlayer = player2;
@@ -210,6 +220,7 @@ public class GameBoard extends AppCompatActivity  {
 
             for(int x =2;x>=0; x--){
                 flashButtons[x].setBackgroundColor(Color.parseColor("#fc8023"));
+                flashButtons[x].setTextColor(Color.parseColor("#FAFAFA"));
             }
 
             this.displayScore(currentPlayer);
@@ -334,7 +345,7 @@ public class GameBoard extends AppCompatActivity  {
         if(!combinations.isEmpty()){
 
             for (int i = (combinations.size() -1); i>=0;i--){
-                Button[] buttons =  winningPattern.get(i); //attempt to read from null array
+                Button[] buttons =  winningPattern.get(i); 
                 if(buttons[0].getText().toString().equalsIgnoreCase(computerPlaysLetter) && buttons[1].getText().toString().equalsIgnoreCase(" ")){
                     buttons[1].setText(computerPlaysLetter);
                     checkForWin();
@@ -412,28 +423,40 @@ public class GameBoard extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_board);
+
+        Typeface font = Typeface.createFromAsset(getAssets(),  "fonts/Geometry_Soft_Pro_Bold_N.otf");
         // Create High Score database handle
         hiScoreDbAdapter = new HiScoreDbAdapter(this);
         txtMsgTop = (TextView) findViewById(R.id.txtMsgTop);
+
         txtMsgBottom = (TextView) findViewById(R.id.txtMsgBottom);
         btn1  = (Button) findViewById(R.id.btn1);
         btn1.setText(" ");
+        btn1.setTypeface(font);
         btn2  = (Button) findViewById(R.id.btn2);
         btn2.setText(" ");
+        btn2.setTypeface(font);
         btn3  = (Button) findViewById(R.id.btn3);
         btn3.setText(" ");
+        btn3.setTypeface(font);
         btn4  = (Button) findViewById(R.id.btn4);
         btn4.setText(" ");
+        btn4.setTypeface(font);
         btn5  = (Button) findViewById(R.id.btn5);
         btn5.setText(" ");
+        btn5.setTypeface(font);
         btn6  = (Button) findViewById(R.id.btn6);
         btn6.setText(" ");
+        btn6.setTypeface(font);
         btn7  = (Button) findViewById(R.id.btn7);
         btn7.setText(" ");
+        btn7.setTypeface(font);
         btn8  = (Button) findViewById(R.id.btn8);
         btn8.setText(" ");
+        btn8.setTypeface(font);
         btn9  = (Button) findViewById(R.id.btn9);
         btn9.setText(" ");
+        btn9.setTypeface(font);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -455,7 +478,7 @@ public class GameBoard extends AppCompatActivity  {
 
         btnView = new View.OnClickListener(){
             public void onClick(View v){
-                if(txtMsgBottom.getText().toString().contains(" won!")){
+                if(txtMsgBottom.getText().toString().contains(" won!") || txtMsgBottom.getText().toString().equals("Tie Game!") ){
                     return; // To prevent cheating by invoking checkForWin method and count additional wins!
                 }
                 Button b = (Button)v;
@@ -499,7 +522,4 @@ public class GameBoard extends AppCompatActivity  {
 }
 
 
-
-    //Testing git push
-    //Testing git update project -- erin
 }

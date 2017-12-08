@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
     android:orientation="vertical"
     tools:context="com.fhda.cs64a.tictactoe.GameRulesActivity">
 
@@ -13,7 +15,8 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="GAME RULES"
-        android:textSize="30sp"
+        android:textColor="#202020"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
@@ -21,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="left"
-        android:text="It is two players, X and O, game who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three respective marks in a horizontal, vertical, or diagonal row wins the game. \n\n The number of Xs is always either equal to or exactly 1 more than the number of Os (if X starts). \n\n X is player 1 and O is player 2. Player 1(X) always plays the first, and the game ends when three-in-a-row is obtained."
-        android:textSize="23sp"
-        android:textStyle="bold" />
+        android:text="It is two players, X and O, game who take turns marking the spaces in a 3x3 grid. The player who succeeds in placing three respective marks in a horizontal, vertical, or diagonal row wins the game. \n\n The number of Xs is always either equal to or exactly 1 more than the number of Os (if X starts). \n\n Player 1 always makes first turn, and the game ends when three-in-a-row is obtained."
+        android:textColor="#202020"
+        android:textSize="20sp" />
 
     <Space
         android:layout_width="match_parent"
@@ -36,5 +39,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:text="BACK" />
+        android:text="Back to main screen" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="© EMC Games, CS 64 A Foothill College, 2017." />
 </LinearLayout>
