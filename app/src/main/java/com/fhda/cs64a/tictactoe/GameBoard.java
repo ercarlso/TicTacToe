@@ -17,6 +17,13 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class GameBoard extends AppCompatActivity  {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        hiScoreDbAdapter.addScoresForPlayer(player1, p1score, gamesPlayed);
+        hiScoreDbAdapter.addScoresForPlayer(player2, p2score, gamesPlayed);
+        finish(); // Goes back to Welcome screen
+    }
 
     public String player1;
     public String player2;
