@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
+            android:inputType="textPersonName"
             android:textStyle="italic" />
 
 
@@ -121,6 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="0.5"
+            android:inputType="textPersonName"
             android:textStyle="italic" />
 
     </LinearLayout>
