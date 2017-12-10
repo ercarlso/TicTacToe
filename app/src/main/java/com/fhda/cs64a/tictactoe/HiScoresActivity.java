@@ -18,6 +18,7 @@ public class HiScoresActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hi_scores);
         tvScores = (TextView) findViewById(R.id.tvScores);
+        tvScores.setKeyListener(null);
 
         // Open a handle to the scores database
         highScoreDbAdapter = new HiScoreDbAdapter(this);
