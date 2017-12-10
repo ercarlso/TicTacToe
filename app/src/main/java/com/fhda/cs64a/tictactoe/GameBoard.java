@@ -20,8 +20,6 @@ public class GameBoard extends AppCompatActivity  {
     @Override
     protected void onPause() {
         super.onPause();
-        hiScoreDbAdapter.addScoresForPlayer(player1, p1score, gamesPlayed);
-        hiScoreDbAdapter.addScoresForPlayer(player2, p2score, gamesPlayed);
         finish(); // Goes back to Welcome screen
     }
 
@@ -93,9 +91,6 @@ public class GameBoard extends AppCompatActivity  {
         });
         builder.setNegativeButton("Back to main screen", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // Update High Score Database with win/losses
-                hiScoreDbAdapter.addScoresForPlayer(player1, p1score, gamesPlayed);
-                hiScoreDbAdapter.addScoresForPlayer(player2, p2score, gamesPlayed);
                 finish(); // Goes back to Welcome screen
             }
         });
@@ -220,6 +215,13 @@ public class GameBoard extends AppCompatActivity  {
         else{
             // Keep track of games played and won (*not* tie games)
             gamesPlayed++;
+            // Update High Score Database with win/losses
+            hiScoreDbAdapter.addScoresForPlayer(currentPlayer, 1, 1);
+            if (currentPlayer.equalsIgnoreCase(player1)) {
+                hiScoreDbAdapter.addScoresForPlayer(player2, 0, 1);
+            } else {
+                hiScoreDbAdapter.addScoresForPlayer(player1, 0, 1);
+            }
 
             txtMsgBottom.setText(currentPlayer + " won!");
 
